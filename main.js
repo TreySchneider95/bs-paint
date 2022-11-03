@@ -42,6 +42,9 @@ while (count <= gridWidth * gridWidth) {
 // ALSO.
 // You do not have to follow the sections below. If you're doing your functions inline, it doesn't make a lot of sense to separate the event listener functions from their wiring!
 
+let chosenOne = "color-5"
+let mouseDown = false
+
 /***********
  * QUERIES *
 ***********/
@@ -49,8 +52,10 @@ while (count <= gridWidth * gridWidth) {
 // Add queries for all your squares, palette colors, and brush here.
 // (Note the singular or plural used in that sentence!)
 
-
-
+let currentBrush = document.querySelector(".current-brush")
+console.log(currentBrush)
+let palletColors = document.querySelectorAll(".palette-color")
+let squares = document.querySelectorAll(".square")
 /****************************
  * EVENT LISTENER FUNCTIONS *
 ****************************/
@@ -61,7 +66,31 @@ while (count <= gridWidth * gridWidth) {
 // run as event listeners (after the next step is set up) isn't a
 // bad idea for testing purposes.
 
+palletColors.forEach((ele)=>(
+  ele.addEventListener("click", function(){
+    chosenOne = ele.classList[1]
+    currentBrush.classList.remove(currentBrush.classList[1])
+    currentBrush.classList.add(chosenOne)
+  })
+))
 
+document.addEventListener("mousedown", function(){
+  console.log(mouseDown)
+  mouseDown = true
+})
+document.addEventListener("mouseup", function(){
+  console.log(mouseDown)
+  mouseDown = false
+})
+
+squares.forEach((ele)=>(
+  ele.addEventListener("mouseenter", function(){
+    if(mouseDown){
+      ele.classList.remove(ele.classList[1])
+      ele.classList.add(chosenOne)
+    }
+  })
+))
 
 /**************************
  * WIRING IT ALL TOGETHER *
